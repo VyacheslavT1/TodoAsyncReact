@@ -1,0 +1,21 @@
+.wrapper {
+  width: 768px;
+  margin: 2rem; /*Не забыть добавить auto  */
+  text-align: center;
+  border: 2spx solid red;
+}
+
+.taskContainer {
+  padding-bottom: 1rem;
+  box-shadow: 0 0 5px 5px #ccc;
+  border-radius: 0.5rem;
+}
+
+.taskAdd {
+  position: relative;
+}
+
+.error {
+  margin-top: 1rem;
+  color: red;
+}

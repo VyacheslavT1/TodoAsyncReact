@@ -1,0 +1,85 @@
+:root {
+  --primary-color: #fafafa;
+  --input-height: 4rem;
+  --margin-medium: 1rem;
+  --padding-medium: 1rem;
+  --gap-xsmall: 0.5rem;
+  --box-shadow-container: 0 0 5px 5px #ccc;
+  --box-shadow-input: 0px 15px 10px -5px #ccc;
+  --box-shadow-bottom: 0px 15px 10px -5px #ccc;
+  --border-radius-input: 0.5rem 0.5rem 0 0;
+  --border-radius-common: 0.5rem;
+  --border-style: 1px solid #ccc;
+  --add-button-color: #00ae1c;
+  --background-color-hover: #017101;
+  --transition: background-color 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "chalkboard", sans-serif;
+  outline: none;
+}
+
+.taskItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  margin: var(--margin-medium);
+  border: var(--border-style);
+  border-radius: var(--border-radius-common);
+  box-shadow: var(--box-shadow-bottom);
+  text-align: start;
+  transition: var(--transition);
+}
+.taskItem .taskContent {
+  flex-grow: 1;
+  padding: 0 1rem;
+  word-wrap: break-word;
+  border-left: var(--border-style);
+}
+.taskItem .taskContent .edit {
+  width: 100%;
+  border: none;
+  font-size: inherit;
+}
+.taskItem .checked {
+  text-decoration: line-through;
+}
+.taskItem .iconContainer {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+  opacity: 0;
+}
+.taskItem .iconContainer .editIcon,
+.taskItem .iconContainer .trashIcon {
+  color: #323749;
+}
+.taskItem:hover .iconContainer {
+  opacity: 1;
+}
+.taskItem:hover .iconContainer .editIcon:hover,
+.taskItem:hover .iconContainer .trashIcon:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.editing .iconContainer .editIcon,
+.editing .iconContainer .trashIcon {
+  display: none;
+}
+
+.iconContainer .saveIcon {
+  display: none;
+}
+
+.editing .iconContainer .saveIcon {
+  display: block;
+}
+.editing .iconContainer .saveIcon:hover {
+  color: var(--add-button-color);
+}/*# sourceMappingURL=TodoItem.module.css.map */
