@@ -59,6 +59,9 @@
 .taskItem .iconContainer .trashIcon {
   color: #323749;
 }
+.taskItem:hover {
+  background-color: #efefef;
+}
 .taskItem:hover .iconContainer {
   opacity: 1;
 }

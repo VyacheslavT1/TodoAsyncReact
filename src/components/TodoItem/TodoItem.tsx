@@ -33,7 +33,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     updateTodo.mutate({
       id: todo._id,
       title: newTitle,
-      completed: isCompleted,
+      completed: false,
     });
     setIsEditing(false);
   };
@@ -44,6 +44,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       key={todo._id}
     >
       <Checkbox
+        checked={todo.completed}
         onCheck={(checked: boolean) => {
           setIsCompeted(checked);
           updateTodo.mutate({

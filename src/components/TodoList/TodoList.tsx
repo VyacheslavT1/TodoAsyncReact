@@ -24,11 +24,13 @@ const TodoList: React.FC<TodoListProps> = ({ children }) => {
       {isLoading && <p>Loading...</p>}
       {error && <p>Ошибка загрузки задач</p>}
       {todos && todos.length > 0 && (
-        <ul className={styles.taskList}>
-          {todos.map((todo: Todo) => (
-            <TodoItem key={todo._id} todo={todo} />
-          ))}
-        </ul>
+        <>
+          <ul className={styles.taskList}>
+            {todos.map((todo: Todo) => (
+              <TodoItem key={todo._id} todo={todo} />
+            ))}
+          </ul>
+        </>
       )}
     </div>
   );

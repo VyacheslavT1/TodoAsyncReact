@@ -33,7 +33,7 @@ export const updateTodo = async (todo: {
   const response = await fetch(`${API_URL}/db-todos/v1/todos/${todo.id}`, {
     method: "PATCH",
     headers: {
-      Content_Type: "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(todo),
   });
