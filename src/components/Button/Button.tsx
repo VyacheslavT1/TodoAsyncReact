@@ -36,7 +36,7 @@ const Button: React.FC<ButtonProps> = ({
   const secondaryClasses = `
   relative justify-center
   w-[20rem] h-[2.5rem]
-  mt-4 gap-4
+  mt-8 gap-4
   border border-[#ccc]
   hover:bg-[#efefef]
   group

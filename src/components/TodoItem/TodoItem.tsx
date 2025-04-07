@@ -35,9 +35,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <li
-      className={`taskItem group relative flex items-center min-h-[3rem] m-4 border border-[#ccc] rounded-lg shadow-[0px_15px_10px_-5px_#ccc] text-left transition duration-300
+      className={`taskItem 
+        relative flex items-center 
+        min-h-[3rem] m-4 border border-[#ccc] rounded-lg 
+        text-left
+        shadow-[0px_15px_10px_-5px_#ccc] transition duration-300 group
         ${isEditing ? "bg-[#fafafa]" : "hover:bg-[#efefef]"}
-      `}
+      `.trim()}
       key={todo._id}
     >
       <Checkbox
@@ -67,7 +71,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
              text-justify resize-none outline-none"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            onBlur={handleSaveChanges}
             autoFocus
             autoResize
             rows={1}
@@ -83,7 +86,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         }`}
       >
         {isEditing ? (
-          // Режим редактирования: показываем только иконку сохранения
           SaveChangesIcon && (
             <span
               onClick={handleSaveChanges}
