@@ -3,8 +3,8 @@ import { useDeleteTodo } from "../../hooks/useDeleteTodo";
 import { useUpdateTodo } from "../../hooks/useUpdateTodo";
 import { useLazySVG } from "../../hooks/useLazySVG";
 import Checkbox from "../Checkbox/Checkbox";
+import TextArea from "../TextArea/TextArea";
 import Todo from "../../types/types";
-import styles from "./TodoItem.module.css";
 
 interface TodoItemProps {
   todo: Todo;
@@ -15,15 +15,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const deleteTodo = useDeleteTodo();
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
-  const [isCompleted, setIsCompeted] = useState(todo.completed);
+  const [isCompleted, setIsCompleted] = useState(todo.completed);
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleDeleteTodo = () => {
-    deleteTodo.mutate(todo._id);
-  };
+  const handleEditClick = () => setIsEditing(true);
+  const handleDeleteTodo = () => deleteTodo.mutate(todo._id);
 
   const EditIcon = useLazySVG("assets/icons/pen.svg?react");
   const TrashIcon = useLazySVG("assets/icons/trash-1.svg?react");
@@ -33,66 +28,93 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     updateTodo.mutate({
       id: todo._id,
       title: newTitle,
-      completed: false,
+      completed: isCompleted,
     });
     setIsEditing(false);
   };
 
   return (
     <li
-      className={`${styles.taskItem} ${isEditing ? styles.editing : ""}`}
+      className={`taskItem group relative flex items-center min-h-[3rem] m-4 border border-[#ccc] rounded-lg shadow-[0px_15px_10px_-5px_#ccc] text-left transition duration-300
+        ${isEditing ? "bg-[#fafafa]" : "hover:bg-[#efefef]"}
+      `}
       key={todo._id}
     >
       <Checkbox
         checked={todo.completed}
         onCheck={(checked: boolean) => {
-          setIsCompeted(checked);
+          setIsCompleted(checked);
           updateTodo.mutate({
             id: todo._id,
             title: todo.title,
             completed: checked,
           });
         }}
+        disabled={isEditing}
       />
       <div
-        className={`${styles.taskContent} ${isCompleted ? styles.checked : ""}`}
+        className={`taskContent
+           flex-grow max-w-full my-4 px-4  
+           border border-l-[#ccc] border-t-0 border-r-0 border-b-0 
+           text-justify break-words
+          ${isCompleted ? "line-through" : ""} 
+        `}
       >
         {isEditing ? (
-          <input
-            className={styles.edit}
-            type="text"
+          <TextArea
+            className="edit 
+            flex w-full h-full border-0 font-inherit 
+             text-justify resize-none outline-none"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             onBlur={handleSaveChanges}
             autoFocus
+            autoResize
+            rows={1}
+            cols={30}
           />
         ) : (
           newTitle || todo.title
         )}
       </div>
-
-      <div className={styles.iconContainer}>
-        {!isCompleted && (
+      <div
+        className={`iconContainer flex w-16 gap-4 pr-4 flex-shrink-0 justify-end  ${
+          isEditing ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+      >
+        {isEditing ? (
+          // Режим редактирования: показываем только иконку сохранения
+          SaveChangesIcon && (
+            <span
+              onClick={handleSaveChanges}
+              className="saveIcon cursor-pointer hover:text-[#00ae1c]"
+            >
+              <SaveChangesIcon />
+            </span>
+          )
+        ) : (
           <>
-            {EditIcon && (
-              <span onClick={handleEditClick} className={styles.editIcon}>
+            {!isCompleted && EditIcon && (
+              <span
+                onClick={handleEditClick}
+                className="editIcon cursor-pointer hover:text-[#FF5620]"
+              >
                 <EditIcon />
               </span>
             )}
-            {SaveChangesIcon && (
-              <span onClick={handleSaveChanges} className={styles.saveIcon}>
-                <SaveChangesIcon />
+            {TrashIcon && (
+              <span
+                onClick={handleDeleteTodo}
+                className="trashIcon cursor-pointer hover:text-[#FF5620]"
+              >
+                <TrashIcon />
               </span>
             )}
           </>
-        )}
-        {TrashIcon && (
-          <span onClick={handleDeleteTodo} className={styles.trashIcon}>
-            <TrashIcon />
-          </span>
         )}
       </div>
     </li>
   );
 };
+
 export default TodoItem;

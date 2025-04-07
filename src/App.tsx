@@ -4,8 +4,6 @@ import Button from "./components/Button/Button";
 import { useCreateTodo } from "./hooks/useCreateTodo";
 import { useDeleteTodo } from "./hooks/useDeleteTodo";
 import TodoList from "./components/TodoList/TodoList";
-import "./App.css";
-
 import { useQueryClient } from "@tanstack/react-query";
 import Todo from "./types/types";
 
@@ -44,9 +42,9 @@ export default function App() {
   };
 
   return (
-    <div className="wrapper">
-      <div className="taskContainer">
-        <div className="taskAdd">
+    <div className="w-[768px] my-8 mx-auto text-center">
+      <div className="pb-4 rounded-lg shadow-[0_0_5px_5px_#ccc] ">
+        <div className="relative">
           <InputField
             id="todo-input"
             value={inputValue}
@@ -58,7 +56,9 @@ export default function App() {
           </Button>
         </div>
         <TodoList>
-          {errorMessage && <p className="error">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="mt-4 text-[#FF5620]">{errorMessage}</p>
+          )}
         </TodoList>
       </div>
       <Button onClick={handleDeleteAllTodos} variant="secondary">

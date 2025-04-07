@@ -1,6 +1,5 @@
 import React from "react";
 import { useLazySVG } from "../../hooks/useLazySVG";
-import styles from "./Checkbox.module.css";
 
 export interface CheckboxProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -18,13 +17,23 @@ const Checkbox: React.FC<CheckboxProps> = ({ checked, onCheck, ...props }) => {
     onCheck(e.target.checked);
   };
 
+  const checkboxContainerStyles =
+    `relative inline-flex justify-center items-center 
+    flex-shrink-0 w-[2.75rem] h-[2.75rem]`.trim();
+
+  const inputCheckboxStyles = "appearance-none relative z-[2] ";
+
   return (
-    <label className={styles.checkboxContainer}>
+    <label
+      className={`${checkboxContainerStyles} ${
+        props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+      }`}
+    >
       <input
         type="checkbox"
         checked={checked}
         onChange={handleCheck}
-        className={styles.input}
+        className={inputCheckboxStyles}
         role="checkbox"
         aria-checked={checked}
         {...props}
